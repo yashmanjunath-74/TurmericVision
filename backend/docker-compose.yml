@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  turmeric-api:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./turmeric_model.h5:/app/turmeric_model.h5
+      - ./uploads:/app/uploads
+    environment:
+      - FLASK_ENV=production
+      - MODEL_PATH=/app/turmeric_model.h5
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
