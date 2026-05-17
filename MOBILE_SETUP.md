@@ -95,13 +95,13 @@ Verify backend is accessible:
 
 ```bash
 # From your computer terminal
-curl http://localhost:5000/health
+curl http://localhost:5115/health
 
 # Should return:
 # {"status": "healthy", "model_loaded": true}
 ```
 
-Or open in browser: `http://localhost:5000/health`
+Or open in browser: `http://localhost:5115/health`
 
 ---
 

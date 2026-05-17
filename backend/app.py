@@ -3,7 +3,7 @@ import numpy as np
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.utils import load_img, img_to_array
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -50,10 +50,10 @@ def process_image(img_path):
     """
     try:
         # Load image
-        img = image.load_img(img_path, target_size=(IMAGE_SIZE, IMAGE_SIZE))
+        img = load_img(img_path, target_size=(IMAGE_SIZE, IMAGE_SIZE))
         
         # Convert to numpy array
-        img_array = image.img_to_array(img)
+        img_array = img_to_array(img)
         
         # Normalize (divide by 255)
         img_array = img_array / 255.0
@@ -157,4 +157,4 @@ def health():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5115)

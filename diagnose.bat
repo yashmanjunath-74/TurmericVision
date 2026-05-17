@@ -9,11 +9,11 @@ echo.
 
 REM Check if backend is running
 echo [1] Checking if Flask backend is running...
-netstat -ano | findstr :5000 > nul
+netstat -ano | findstr :5115 > nul
 if %errorlevel% equ 0 (
-    echo ✅ Backend is running on port 5000
+    echo ✅ Backend is running on port 5115
 ) else (
-    echo ❌ Backend is NOT running on port 5000
+    echo ❌ Backend is NOT running on port 5115
     echo Start backend with: python app.py
     pause
     exit /b
@@ -21,7 +21,7 @@ if %errorlevel% equ 0 (
 
 echo.
 echo [2] Testing backend health check...
-curl -s http://localhost:5000/health > nul
+curl -s http://localhost:5115/health > nul
 if %errorlevel% equ 0 (
     echo ✅ Backend health check successful
 ) else (
@@ -37,7 +37,7 @@ ipconfig | findstr "IPv4 Address"
 echo.
 echo [4] Firewall check...
 echo Make sure Windows Firewall allows:
-echo    - Port 5000 (Backend)
+echo    - Port 5115 (Backend)
 echo    - Port 3000 (Frontend)
 echo.
 echo To add firewall rules:

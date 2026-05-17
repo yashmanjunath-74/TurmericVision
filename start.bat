@@ -44,7 +44,7 @@ if not exist "turmeric_model.h5" (
 REM Start backend in new window
 start "Turmeric Vision Backend" python app.py
 echo Backend started
-echo Backend running at: http://0.0.0.0:5000
+echo Backend running at: http://0.0.0.0:5115
 echo.
 
 REM Wait for backend to start
@@ -55,7 +55,7 @@ cd ..\frontend
 
 REM Update .env file with correct IP
 (
-    echo REACT_APP_API_URL=http://%COMPUTER_IP%:5000
+    echo REACT_APP_API_URL=http://%COMPUTER_IP%:5115
 ) > .env
 
 echo Updating frontend with backend IP: %COMPUTER_IP%

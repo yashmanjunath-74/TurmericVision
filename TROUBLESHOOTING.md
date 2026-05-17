@@ -91,7 +91,7 @@ On Your Network: http://YOUR_IP:3000
 ### Step 5: Test Backend Accessibility
 
 #### From Computer Browser
-Open: `http://localhost:5000/health`
+Open: `http://localhost:5115/health`
 
 Should show:
 ```json
@@ -151,7 +151,7 @@ Make sure both devices are on the **same WiFi**:
 ### Test 1: Backend Health
 ```bash
 # From PowerShell
-curl http://localhost:5000/health
+curl http://localhost:5115/health
 ```
 
 Expected:

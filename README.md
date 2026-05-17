@@ -249,7 +249,7 @@ cd backend
 docker-compose up --build
 ```
 
-Runs at: `http://localhost:5000`
+Runs at: `http://localhost:5115`
 
 ## Configuration
 
@@ -333,7 +333,7 @@ npm start  # Automatically reloads on file changes
 ### Testing
 ```bash
 # Test backend
-curl http://localhost:5000/health
+curl http://localhost:5115/health
 
 # Test frontend
 cd frontend

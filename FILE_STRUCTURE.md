@@ -326,10 +326,10 @@ Then import in `App.js`
 ### Backend Testing
 ```bash
 # Health check
-curl http://localhost:5000/health
+curl http://localhost:5115/health
 
 # Image prediction (requires actual image)
-curl -X POST -F "image=@test.jpg" http://localhost:5000/predict
+curl -X POST -F "image=@test.jpg" http://localhost:5115/predict
 ```
 
 ### Frontend Testing
@@ -387,7 +387,7 @@ npm update
 1. Check `app.py` terminal output
 2. Check browser console (F12)
 3. Check network requests (DevTools Network tab)
-4. Check backend health: `http://localhost:5000/health`
+4. Check backend health: `http://localhost:5115/health`
 
 ---
 

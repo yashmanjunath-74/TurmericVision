@@ -4,7 +4,7 @@ import './App.css';
 import LoadingSpinner from './components/LoadingSpinner';
 import ResultCard from './components/ResultCard';
 import ImagePreview from './components/ImagePreview';
-import TurmericRain from './components/TurmericRain';
+import CameraCapture from './components/CameraCapture';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,13 +12,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [showCamera, setShowCamera] = useState(false);
 
   // API endpoint - Change this to your backend IP address
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://10.51.52.121:5000';
 
   const handleImageCapture = (e) => {
     const file = e.target.files[0];
-    
+
     if (!file) return;
 
     // Validate file type
@@ -37,7 +38,7 @@ function App() {
 
     setSelectedImage(file);
     setError(null);
-    
+
     // Create preview URL
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -92,91 +93,127 @@ function App() {
     setPreviewUrl(null);
     setResult(null);
     setError(null);
+    setShowCamera(false);
+  };
+
+  const handleCameraCapture = (file) => {
+    setSelectedImage(file);
+    setShowCamera(false);
+    setError(null);
+
+    // Create preview URL
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleCameraCancel = () => {
+    setShowCamera(false);
   };
 
   return (
     <div className="app-container">
-      <TurmericRain />
       <div className="header">
         <h1>🌿 Turmeric Vision</h1>
         <p className="subtitle">AI-Powered Turmeric Classification</p>
       </div>
 
       <div className="main-content">
-        {/* Camera/File Input Section */}
-        <div className="input-section">
-          <div className="capture-box">
-            <input
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onChange={handleImageCapture}
-              id="camera-input"
-              className="hidden-input"
-            />
-            <label htmlFor="camera-input" className="capture-button">
-              📸 Capture or Choose Image
-            </label>
-          </div>
-        </div>
-
-        {/* Image Preview */}
-        {previewUrl && (
-          <ImagePreview 
-            imageUrl={previewUrl} 
-            fileName={selectedImage?.name}
+        {/* Show Camera if active */}
+        {showCamera ? (
+          <CameraCapture 
+            onCapture={handleCameraCapture}
+            onCancel={handleCameraCancel}
           />
-        )}
+        ) : (
+          <>
+            {/* Camera/File Input Section */}
+            <div className="input-section">
+              <div className="capture-options">
+                <button
+                  onClick={() => setShowCamera(true)}
+                  className="option-button camera-btn"
+                >
+                  📷 Use Camera
+                </button>
+                <button
+                  onClick={() => document.getElementById('file-input').click()}
+                  className="option-button file-btn"
+                >
+                  🖼️ Choose From Gallery
+                </button>
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageCapture}
+                id="file-input"
+                className="hidden-input"
+              />
+            </div>
 
-        {/* Error Message */}
-        {error && (
-          <div className="error-message">
-            <span className="error-icon">⚠️</span>
-            <span>{error}</span>
-          </div>
-        )}
+            {/* Image Preview */}
+            {previewUrl && (
+              <ImagePreview
+                imageUrl={previewUrl}
+                fileName={selectedImage?.name}
+              />
+            )}
 
-        {/* Loading Spinner */}
-        {loading && <LoadingSpinner />}
+            {/* Error Message */}
+            {error && (
+              <div className="error-message">
+                <span className="error-icon">⚠️</span>
+                <span>{error}</span>
+              </div>
+            )}
 
-        {/* Predict Button */}
-        {previewUrl && !loading && (
-          <div className="button-group">
-            <button
-              onClick={handlePredict}
-              className="predict-button"
-              disabled={loading}
-            >
-              🤖 Analyze Image
-            </button>
-            <button
-              onClick={handleClear}
-              className="clear-button"
-            >
-              ↻ Clear
-            </button>
-          </div>
-        )}
+            {/* Loading Spinner */}
+            {loading && <LoadingSpinner />}
 
-        {/* Result Card */}
-        {result && !loading && (
-          <ResultCard result={result} />
-        )}
+            {/* Predict Button */}
+            {previewUrl && !loading && (
+              <div className="button-group">
+                <button
+                  onClick={handlePredict}
+                  className="predict-button"
+                  disabled={loading}
+                >
+                  🤖 Analyze Image
+                </button>
+                <button
+                  onClick={handleClear}
+                  className="clear-button"
+                >
+                  ↻ Clear
+                </button>
+              </div>
+            )}
 
-        {/* Backend Info */}
-        {!result && !loading && previewUrl === null && (
-          <div className="info-section">
-            <h3>ℹ️ How to Use</h3>
-            <ol>
-              <li>Tap the camera button to capture or choose an image</li>
-              <li>Preview your image</li>
-              <li>Click "Analyze Image" to get the prediction</li>
-              <li>See the turmeric type and confidence score</li>
-            </ol>
-            <p className="backend-url">
-              Backend: <code>{API_URL}</code>
-            </p>
-          </div>
+            {/* Result Card */}
+            {result && !loading && (
+              <ResultCard result={result} />
+            )}
+
+            {/* Backend Info */}
+            {!result && !loading && previewUrl === null && (
+              <div className="info-section">
+                <h3>ℹ️ How to Use</h3>
+                <ol>
+                  <li>Choose between Camera or Gallery</li>
+                  <li>Capture or select your turmeric image</li>
+                  <li>Preview your image</li>
+                  <li>Click "Analyze Image" to get the prediction</li>
+                  <li>See the turmeric type and confidence score</li>
+                </ol>
+                <p className="backend-url">
+                  Backend: <code>{API_URL}</code>
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

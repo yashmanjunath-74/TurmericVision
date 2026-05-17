@@ -40,7 +40,7 @@ fi
 python app.py &
 BACKEND_PID=$!
 echo -e "${GREEN}Backend started (PID: $BACKEND_PID)${NC}"
-echo "Backend running at: http://0.0.0.0:5000"
+echo "Backend running at: http://0.0.0.0:5115"
 echo ""
 
 # Start Frontend
@@ -48,7 +48,7 @@ echo -e "${BLUE}Starting Frontend...${NC}"
 cd ../frontend
 
 # Update .env file with correct IP
-echo "REACT_APP_API_URL=http://${COMPUTER_IP}:5000" > .env
+echo "REACT_APP_API_URL=http://${COMPUTER_IP}:5115" > .env
 
 npm install
 npm start

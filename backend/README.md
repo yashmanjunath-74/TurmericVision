@@ -23,7 +23,7 @@ A Flask REST API for classifying turmeric types using a Keras model.
    python app.py
    ```
    
-   The server will start at `http://localhost:5000`
+   The server will start at `http://localhost:5115`
 
 ## API Endpoints
 
@@ -37,7 +37,7 @@ Classify a turmeric image
 
 **Example using cURL:**
 ```bash
-curl -X POST -F "image=@path/to/image.jpg" http://localhost:5000/predict
+curl -X POST -F "image=@path/to/image.jpg" http://localhost:5115/predict
 ```
 
 **Example using Python requests:**
@@ -46,7 +46,7 @@ import requests
 
 with open('turmeric_image.jpg', 'rb') as f:
     files = {'image': f}
-    response = requests.post('http://localhost:5000/predict', files=files)
+    response = requests.post('http://localhost:5115/predict', files=files)
     print(response.json())
 ```
 
@@ -124,7 +124,7 @@ formData.append('image', {
   name: 'image.jpg'
 });
 
-fetch('http://localhost:5000/predict', {
+fetch('http://localhost:5115/predict', {
   method: 'POST',
   body: formData
 })

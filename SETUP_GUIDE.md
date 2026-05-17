@@ -346,7 +346,7 @@ Check terminal output for:
 ### Test Backend
 ```bash
 # From terminal
-curl -X GET http://localhost:5000/health
+curl -X GET http://localhost:5115/health
 
 # Should return: {"status": "healthy", "model_loaded": true}
 ```

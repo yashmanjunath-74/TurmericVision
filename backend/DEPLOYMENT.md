@@ -17,7 +17,7 @@ Copy `turmeric_model.h5` to the project root directory
 python app.py
 ```
 
-The server will run at `http://localhost:5000`
+The server will run at `http://localhost:5115`
 
 **Advantages:**
 - Easy to debug
@@ -44,7 +44,7 @@ Place `turmeric_model.h5` in the project root directory
 docker-compose up --build
 ```
 
-The server will run at `http://localhost:5000`
+The server will run at `http://localhost:5115`
 
 **Using Docker Compose Options:**
 ```bash
@@ -186,12 +186,12 @@ export FLASK_ENV=production  # or development
 
 ### Health Check
 ```bash
-curl http://localhost:5000/health
+curl http://localhost:5115/health
 ```
 
 ### Make a Prediction
 ```bash
-curl -X POST -F "image=@test_image.jpg" http://localhost:5000/predict
+curl -X POST -F "image=@test_image.jpg" http://localhost:5115/predict
 ```
 
 ### Using Python
@@ -199,7 +199,7 @@ curl -X POST -F "image=@test_image.jpg" http://localhost:5000/predict
 import requests
 
 files = {'image': open('test_image.jpg', 'rb')}
-response = requests.post('http://localhost:5000/predict', files=files)
+response = requests.post('http://localhost:5115/predict', files=files)
 print(response.json())
 ```
 

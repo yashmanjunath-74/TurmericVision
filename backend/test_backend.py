@@ -13,7 +13,7 @@ def test_health():
     """Test the health check endpoint"""
     print("Testing /health endpoint...")
     try:
-        response = requests.get('http://localhost:5000/health')
+        response = requests.get('http://localhost:5115/health')
         print(f"Status: {response.status_code}")
         print(f"Response: {json.dumps(response.json(), indent=2)}\n")
         return response.status_code == 200
@@ -34,7 +34,7 @@ def test_predict(image_path):
     try:
         with open(image_path, 'rb') as f:
             files = {'image': f}
-            response = requests.post('http://localhost:5000/predict', files=files)
+            response = requests.post('http://localhost:5115/predict', files=files)
         
         print(f"Status: {response.status_code}")
         print(f"Response: {json.dumps(response.json(), indent=2)}\n")
@@ -51,7 +51,7 @@ def test_invalid_file():
         # Create a temporary text file
         with open('test.txt', 'rb') as f:
             files = {'image': f}
-            response = requests.post('http://localhost:5000/predict', files=files)
+            response = requests.post('http://localhost:5115/predict', files=files)
         
         print(f"Status: {response.status_code}")
         print(f"Response: {json.dumps(response.json(), indent=2)}\n")
@@ -65,7 +65,7 @@ def test_no_image():
     """Test with no image file"""
     print("Testing /predict endpoint without image file...")
     try:
-        response = requests.post('http://localhost:5000/predict')
+        response = requests.post('http://localhost:5115/predict')
         print(f"Status: {response.status_code}")
         print(f"Response: {json.dumps(response.json(), indent=2)}\n")
         return response.status_code == 400
